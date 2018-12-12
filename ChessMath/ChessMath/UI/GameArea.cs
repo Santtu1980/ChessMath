@@ -21,7 +21,7 @@ namespace ChessMath.UI
         private static int CELLHEIGHT = 50;
         private static int CELLWIDTH = 50;
         private int numberOfCells = 0;
-        private static List<int> numbers = new List<int>();
+        public static List<int> numbers = new List<int>();
 
         private void InitializeComponent()
         {
@@ -45,10 +45,13 @@ namespace ChessMath.UI
                 for (int column = 0; column < height; column++)
                 {
                     var cell = new CellLabel();
-                    cell.Top = row * CELLHEIGHT + 10;
-                    cell.Left = column * CELLHEIGHT + 10;
+                    cell.CellHeight = 50;
+                    cell.CellWidth = 50;
+                    cell.LabelObject = new Label();
+                    cell.LabelObject.Top = row * CELLHEIGHT + 10;
+                    cell.LabelObject.Left = column * CELLHEIGHT + 10;
                     cell.CellNumber = row * column;
-                    Controls.Add(cell);
+                    Controls.Add(cell.LabelObject);
 
                     numberOfCells++;
                     numbers.Add(numberOfCells);
@@ -56,39 +59,19 @@ namespace ChessMath.UI
             }
         }
 
-        public void GridCellInsertNext_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = (Label)sender;
-            if (clickedLabel.Text == string.Empty)
-            {
-                clickedLabel.Text = numbers.Min().ToString();
-                numbers.Remove(numbers.Min());
-            }
-            else
-            {
-                if (int.TryParse(clickedLabel.Text, out int number))
-                {
-                    if (number + 1 == numbers.Min())
-                    {
-                        clickedLabel.Text = string.Empty;
-                        numbers.Add(number);
-                    }
-                    else
-                    {
-                        // Start reddish background for a 2 secs
-                        Thread thread1 = new Thread(ImpossibleClick);
-                        thread1.Start(sender);
-                    }
-                }
-            }
-        }
 
-        private static Label _clickedLabel;
+        private static CellLabel _clickedLabel;
         delegate void ImpossibleClickDelegate(Color color);
+        public void ImpossibleCellClicked(object sender)
+        {
+            // Start reddish background for a 2 secs
+            Thread thread1 = new Thread(ImpossibleClick);
+            thread1.Start(sender);
+        }
         public void ImpossibleClick(object sender)
         {
-            if (sender.GetType() != typeof(Label)) return;
-            _clickedLabel = (Label)sender;
+            if (sender.GetType() != typeof(CellLabel)) return;
+            _clickedLabel = (CellLabel)sender;
             int colorPart = 510;
 
             while(colorPart > 1)
@@ -104,14 +87,14 @@ namespace ChessMath.UI
 
         private void SetColor(Color color)
         {
-            if (_clickedLabel.InvokeRequired)
+            if (_clickedLabel.LabelObject.InvokeRequired)
             {
                 ImpossibleClickDelegate d = new ImpossibleClickDelegate(SetColor);
                 Invoke(d, new object[] { color });
             }
             else
             {
-                _clickedLabel.BackColor = color;
+                _clickedLabel.LabelObject.BackColor = color;
             }
         }
     }
