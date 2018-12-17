@@ -44,13 +44,11 @@ namespace ChessMath.UI
             {
                 for (int column = 0; column < height; column++)
                 {
-                    var cell = new CellLabel();
-                    cell.CellHeight = 50;
-                    cell.CellWidth = 50;
-                    cell.LabelObject = new Label();
+                    var cell = new CellLabel(50);
                     cell.LabelObject.Top = row * CELLHEIGHT + 10;
                     cell.LabelObject.Left = column * CELLHEIGHT + 10;
                     cell.CellNumber = row * column;
+                    cell.LabelObject.Text = cell.CellNumber.ToString();
                     Controls.Add(cell.LabelObject);
 
                     numberOfCells++;

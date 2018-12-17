@@ -8,23 +8,21 @@ namespace ChessMath.UI.Components
 {
     public class CellLabel
     {
-        public int CellWidth;
-        public int CellHeight;
-        public int CellNumber;
-        public Label LabelObject;
-        public CellLabel()
+        public int CellNumber { get; set; }
+        public Label LabelObject { get; }
+        public CellLabel(int cellSize)
         {
             LabelObject = new Label();
             LabelObject.Font = new Font("Arial", 25);
-            LabelObject.Width = CellWidth;
-            LabelObject.Height = CellHeight;
+            LabelObject.Width = cellSize;
+            LabelObject.Height = cellSize;
             LabelObject.TextAlign = ContentAlignment.MiddleCenter;
-            LabelObject.BackColor = Color.Black;
+            LabelObject.BackColor = Color.Wheat;
             LabelObject.BorderStyle = BorderStyle.FixedSingle;
             LabelObject.Enabled = true;
             
-
-            //LabelObject.Click += GridCellInsertNext_Click;
+            LabelObject.Click += GridCellInsertNext_Click;
+            
         }
 
         public void GridCellInsertNext_Click(object sender, EventArgs e)
