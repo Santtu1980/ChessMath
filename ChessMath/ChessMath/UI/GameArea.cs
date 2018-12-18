@@ -19,8 +19,6 @@ namespace ChessMath.UI
         {
             InitializeComponent();
         }
-        private int numberOfCells = 0;
-        
         private void InitializeComponent()
         {
             int gridWidth = 4;
@@ -38,8 +36,9 @@ namespace ChessMath.UI
         }
         public void CreateGrid(int width, int height, GridHelper.GridForm form)
         {
-            var cells = GridHelper.CreateGrid(width, height, numberOfCells, form);
-            Controls.AddRange(cells.Select(x => x.LabelObject).ToArray());
+            var cells = GridHelper.CreateGrid(width, height, form);
+            if(cells.Any())
+                Controls.AddRange(cells.Select(x => x.LabelObject).ToArray());
         }
 
 

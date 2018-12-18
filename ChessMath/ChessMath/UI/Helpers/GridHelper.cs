@@ -21,8 +21,9 @@ namespace ChessMath.UI.Helpers
 
 
 
-        public static List<CellLabel> CreateGrid(int width, int height, int numberOfCells, GridForm form)
+        public static List<CellLabel> CreateGrid(int width, int height, GridForm form)
         {
+            int numberOfCells = 0;
             List<CellLabel> cells = new List<CellLabel>();
             for(int row = 0; row < width; row++)
             {
