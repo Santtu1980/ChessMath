@@ -3,17 +3,18 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ChessMath.UI.Helpers;
 
 namespace ChessMath.UI.Components
 {
     public class CellLabel
     {
-        public int CellNumber { get; set; }
+        public Point CellCoordinate { get; set; }
         public Label LabelObject { get; }
         public CellLabel(int cellSize)
         {
             LabelObject = new Label();
-            LabelObject.Font = new Font("Arial", 25);
+            LabelObject.Font = new Font("Arial", 15);
             LabelObject.Width = cellSize;
             LabelObject.Height = cellSize;
             LabelObject.TextAlign = ContentAlignment.MiddleCenter;
@@ -30,17 +31,17 @@ namespace ChessMath.UI.Components
             Label clickedLabel = (Label)sender;
             if (clickedLabel.Text == string.Empty)
             {
-                clickedLabel.Text = GameArea.numbers.Min().ToString();
-                GameArea.numbers.Remove(GameArea.numbers.Min());
+                clickedLabel.Text = GridHelper.numbers.Min().ToString();
+                GridHelper.numbers.Remove(GridHelper.numbers.Min());
             }
             else
             {
                 if (int.TryParse(clickedLabel.Text, out int number))
                 {
-                    if (number + 1 == GameArea.numbers.Min())
+                    if (number + 1 == GridHelper.numbers.Min())
                     {
                         clickedLabel.Text = string.Empty;
-                        GameArea.numbers.Add(number);
+                        GridHelper.numbers.Add(number);
                     }
                     else
                     {

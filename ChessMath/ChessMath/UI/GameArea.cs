@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ChessMath.UI.Helpers;
 
 namespace ChessMath.UI
 {
@@ -18,47 +19,32 @@ namespace ChessMath.UI
         {
             InitializeComponent();
         }
-        private static int CELLHEIGHT = 50;
-        private static int CELLWIDTH = 50;
         private int numberOfCells = 0;
-        public static List<int> numbers = new List<int>();
-
+        
         private void InitializeComponent()
         {
             int gridWidth = 4;
             int gridHeight = 4;
             InitializeMainForm(gridWidth, gridHeight);
-            CreateGrid(gridWidth, gridHeight);
+            CreateGrid(gridWidth, gridHeight, GridHelper.GridForm.Square);
 
         }
         private void InitializeMainForm(int width, int height)
         {
-            Width = width * CELLWIDTH + 200 + 20;
-            Height = height * CELLHEIGHT + 20 + 40;
+            Width = width * GridHelper.CELLWIDTH + 200 + 20;
+            Height = height * GridHelper.CELLHEIGHT + 20 + 40;
             Text = "Chess Math";
             BackColor = Color.White;
         }
-        public void CreateGrid(int width, int height)
+        public void CreateGrid(int width, int height, GridHelper.GridForm form)
         {
-            for (int row = 0; row < width; row++)
-            {
-                for (int column = 0; column < height; column++)
-                {
-                    var cell = new CellLabel(50);
-                    cell.LabelObject.Top = row * CELLHEIGHT + 10;
-                    cell.LabelObject.Left = column * CELLHEIGHT + 10;
-                    cell.CellNumber = row * column;
-                    cell.LabelObject.Text = cell.CellNumber.ToString();
-                    Controls.Add(cell.LabelObject);
-
-                    numberOfCells++;
-                    numbers.Add(numberOfCells);
-                }
-            }
+            var cells = GridHelper.CreateGrid(width, height, numberOfCells, form);
+            Controls.AddRange(cells.Select(x => x.LabelObject).ToArray());
         }
 
 
         private static CellLabel _clickedLabel;
+
         delegate void ImpossibleClickDelegate(Color color);
         public void ImpossibleCellClicked(object sender)
         {
@@ -87,8 +73,8 @@ namespace ChessMath.UI
         {
             if (_clickedLabel.LabelObject.InvokeRequired)
             {
-                ImpossibleClickDelegate d = new ImpossibleClickDelegate(SetColor);
-                Invoke(d, new object[] { color });
+                ImpossibleClickDelegate d = SetColor;
+                Invoke(d, color);
             }
             else
             {
