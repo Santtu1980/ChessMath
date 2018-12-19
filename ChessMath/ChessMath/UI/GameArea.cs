@@ -15,6 +15,7 @@ namespace ChessMath.UI
 {
     public partial class GameArea : Form
     {
+        public static Label helperLabel = new Label();
         public GameArea()
         {
             InitializeComponent();
@@ -31,11 +32,10 @@ namespace ChessMath.UI
 
         private void CreateHelperLabel(int gridWidth, int gridHeight)
         {
-            Label helperLabel = new Label();
             helperLabel.Top = 10;
             helperLabel.Left = gridWidth * GridHelper.CELLWIDTH + 10;
             helperLabel.Height = Height - 2 * 10;
-            helperLabel.Text = "ku";
+            helperLabel.Text = "Press start";
             Controls.Add(helperLabel);
         }
 
@@ -48,9 +48,9 @@ namespace ChessMath.UI
             BackColor = Color.White;
         }
 
-        public static void SetHelperText()
+        public static void SetHelperText(string text)
         {
-            
+            helperLabel.Text = "Next:" + text;
         }
         public void CreateGrid(int width, int height, GridHelper.GridForm form)
         {

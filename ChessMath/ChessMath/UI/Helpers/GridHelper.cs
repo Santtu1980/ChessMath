@@ -13,13 +13,13 @@ namespace ChessMath.UI.Helpers
         public static int CELLHEIGHT = 50;
         public static int CELLWIDTH = 50;
         public static List<int> numbers = new List<int>();
+        public static int gridWidth;
+        public static int gridHeight;
 
         public enum GridForm
         {
             Square
         }
-
-
 
         public static List<CellLabel> CreateGrid(int width, int height, GridForm form)
         {
@@ -33,7 +33,6 @@ namespace ChessMath.UI.Helpers
                     cell.LabelObject.Top = row * CELLHEIGHT + 10;
                     cell.LabelObject.Left = column * CELLHEIGHT + 10;
                     cell.CellCoordinate = new Point(row, column);
-                    cell.LabelObject.Text = cell.CellCoordinate.X + "," + cell.CellCoordinate.Y;
                     cells.Add(cell);
 
                     numberOfCells++;

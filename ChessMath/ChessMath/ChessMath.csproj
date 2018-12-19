@@ -61,8 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maths\PossibleCells.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreadShape.cs" />
     <Compile Include="UI\Components\CellObject.cs">
       <SubType>Component</SubType>
     </Compile>

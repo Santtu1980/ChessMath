@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ChessMath.Maths;
 using ChessMath.UI.Helpers;
 
 namespace ChessMath.UI.Components
@@ -10,6 +11,7 @@ namespace ChessMath.UI.Components
     public class CellLabel
     {
         public Point CellCoordinate { get; set; }
+        public int? NumberSetInCell {get;set;}
         public Label LabelObject { get; }
         public CellLabel(int cellSize)
         {
@@ -23,7 +25,8 @@ namespace ChessMath.UI.Components
             LabelObject.Enabled = true;
             
             LabelObject.Click += GridCellInsertNext_Click;
-            
+
+            NumberSetInCell = null;
         }
 
         public void GridCellInsertNext_Click(object sender, EventArgs e)
@@ -31,9 +34,14 @@ namespace ChessMath.UI.Components
             Label clickedLabel = (Label)sender;
             if (clickedLabel.Text == string.Empty)
             {
-                clickedLabel.Text = GridHelper.numbers.Min().ToString();
-                GridHelper.numbers.Remove(GridHelper.numbers.Min());
-                //SetHelperText
+                // Check if possible
+                if (PossibleCells.CheckIfPossible(clickedLabel, ))
+                {
+                    clickedLabel.Text = GridHelper.numbers.Min().ToString();
+                    GridHelper.numbers.Remove(GridHelper.numbers.Min());
+                }
+                else
+                    MessageBox.Show("Not possible");
             }
             else
             {
@@ -50,6 +58,7 @@ namespace ChessMath.UI.Components
                     }
                 }
             }
+            GameArea.SetHelperText(GridHelper.numbers.Min().ToString());
         }
 
     }
