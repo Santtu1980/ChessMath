@@ -25,14 +25,32 @@ namespace ChessMath.UI
             int gridHeight = 4;
             InitializeMainForm(gridWidth, gridHeight);
             CreateGrid(gridWidth, gridHeight, GridHelper.GridForm.Square);
+            CreateHelperLabel(gridWidth, gridHeight);
 
         }
+
+        private void CreateHelperLabel(int gridWidth, int gridHeight)
+        {
+            Label helperLabel = new Label();
+            helperLabel.Top = 10;
+            helperLabel.Left = gridWidth * GridHelper.CELLWIDTH + 10;
+            helperLabel.Height = Height - 2 * 10;
+            helperLabel.Text = "ku";
+            Controls.Add(helperLabel);
+        }
+
+
         private void InitializeMainForm(int width, int height)
         {
             Width = width * GridHelper.CELLWIDTH + 200 + 20;
             Height = height * GridHelper.CELLHEIGHT + 20 + 40;
             Text = "Chess Math";
             BackColor = Color.White;
+        }
+
+        public static void SetHelperText()
+        {
+            
         }
         public void CreateGrid(int width, int height, GridHelper.GridForm form)
         {

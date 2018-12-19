@@ -33,6 +33,7 @@ namespace ChessMath.UI.Components
             {
                 clickedLabel.Text = GridHelper.numbers.Min().ToString();
                 GridHelper.numbers.Remove(GridHelper.numbers.Min());
+                //SetHelperText
             }
             else
             {
