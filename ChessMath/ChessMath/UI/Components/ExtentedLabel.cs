@@ -8,34 +8,33 @@ using ChessMath.UI.Helpers;
 
 namespace ChessMath.UI.Components
 {
-    public class CellLabel
+    public class ExtentedLabel : Label
     {
         public Point CellCoordinate { get; set; }
         public int? NumberSetInCell {get;set;}
         public Label LabelObject { get; }
-        public CellLabel(int cellSize)
+        public ExtentedLabel(int cellSize)
         {
-            LabelObject = new Label();
-            LabelObject.Font = new Font("Arial", 15);
-            LabelObject.Width = cellSize;
-            LabelObject.Height = cellSize;
-            LabelObject.TextAlign = ContentAlignment.MiddleCenter;
-            LabelObject.BackColor = Color.Wheat;
-            LabelObject.BorderStyle = BorderStyle.FixedSingle;
-            LabelObject.Enabled = true;
+            Font = new Font("Arial", 15);
+            Width = cellSize;
+            Height = cellSize;
+            TextAlign = ContentAlignment.MiddleCenter;
+            BackColor = Color.Wheat;
+            BorderStyle = BorderStyle.FixedSingle;
+            Enabled = true;
             
-            LabelObject.Click += GridCellInsertNext_Click;
+            Click += GridCellInsertNext_Click;
 
             NumberSetInCell = null;
         }
 
         public void GridCellInsertNext_Click(object sender, EventArgs e)
         {
-            Label clickedLabel = (Label)sender;
+            ExtentedLabel clickedLabel = (ExtentedLabel)sender;
             if (clickedLabel.Text == string.Empty)
             {
                 // Check if possible
-                if (PossibleCells.CheckIfPossible(clickedLabel, ))
+                if (PossibleCells.CheckIsPossible(clickedLabel.CellCoordinate, GameArea.SelectedGridForm, GameArea.SelectedTreadShape))
                 {
                     clickedLabel.Text = GridHelper.numbers.Min().ToString();
                     GridHelper.numbers.Remove(GridHelper.numbers.Min());

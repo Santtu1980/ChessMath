@@ -21,17 +21,17 @@ namespace ChessMath.UI.Helpers
             Square
         }
 
-        public static List<CellLabel> CreateGrid(int width, int height, GridForm form)
+        public static List<ExtentedLabel> CreateGrid(int width, int height, GridForm form)
         {
             int numberOfCells = 0;
-            List<CellLabel> cells = new List<CellLabel>();
+            List<ExtentedLabel> cells = new List<ExtentedLabel>();
             for(int row = 0; row < width; row++)
             {
                 for(int column = 0; column < height; column++)
                 {
-                    var cell = new CellLabel(50);
-                    cell.LabelObject.Top = row * CELLHEIGHT + 10;
-                    cell.LabelObject.Left = column * CELLHEIGHT + 10;
+                    var cell = new ExtentedLabel(50);
+                    cell.Top = row * CELLHEIGHT + 10;
+                    cell.Left = column * CELLHEIGHT + 10;
                     cell.CellCoordinate = new Point(row, column);
                     cells.Add(cell);
 

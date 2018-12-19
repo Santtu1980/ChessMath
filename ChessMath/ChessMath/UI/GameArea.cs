@@ -16,6 +16,10 @@ namespace ChessMath.UI
     public partial class GameArea : Form
     {
         public static Label helperLabel = new Label();
+        public static GridHelper.GridForm SelectedGridForm { get; set; }
+        public static TreadShape SelectedTreadShape { get; set; }
+        public static List<ExtentedLabel> Cells { get; set; } 
+
         public GameArea()
         {
             InitializeComponent();
@@ -24,8 +28,9 @@ namespace ChessMath.UI
         {
             int gridWidth = 4;
             int gridHeight = 4;
+            SelectedGridForm = GridHelper.GridForm.Square;
             InitializeMainForm(gridWidth, gridHeight);
-            CreateGrid(gridWidth, gridHeight, GridHelper.GridForm.Square);
+            CreateGrid(gridWidth, gridHeight, SelectedGridForm);
             CreateHelperLabel(gridWidth, gridHeight);
 
         }
@@ -54,13 +59,13 @@ namespace ChessMath.UI
         }
         public void CreateGrid(int width, int height, GridHelper.GridForm form)
         {
-            var cells = GridHelper.CreateGrid(width, height, form);
-            if(cells.Any())
-                Controls.AddRange(cells.Select(x => x.LabelObject).ToArray());
+            Cells = GridHelper.CreateGrid(width, height, form);
+            if(Cells.Any())
+                Controls.AddRange(Cells.Select(x => x).ToArray());
         }
 
 
-        private static CellLabel _clickedLabel;
+        private static ExtentedLabel _clickedLabel;
 
         delegate void ImpossibleClickDelegate(Color color);
         public void ImpossibleCellClicked(object sender)
@@ -71,8 +76,8 @@ namespace ChessMath.UI
         }
         public void ImpossibleClick(object sender)
         {
-            if (sender.GetType() != typeof(CellLabel)) return;
-            _clickedLabel = (CellLabel)sender;
+            if (sender.GetType() != typeof(ExtentedLabel)) return;
+            _clickedLabel = (ExtentedLabel)sender;
             int colorPart = 510;
 
             while(colorPart > 1)
