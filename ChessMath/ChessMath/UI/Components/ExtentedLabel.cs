@@ -47,12 +47,6 @@ namespace ChessMath.UI.Components
                 {
                     clickedLabel.Text = GridHelper.numbers.Min().ToString();
                     GridHelper.numbers.Remove(GridHelper.numbers.Min());
-
-                    //DEbug
-                    //set helper text
-                    if(biggestCell != null)
-                        GameArea.SetHelperText(string.Join("|", biggestCell.possibleCells.Select(i => i.CellCoordinate.X + "," + i.CellCoordinate.Y).ToArray()));
-
                 }
                 else
                     NotPossibleClick(clickedLabel);

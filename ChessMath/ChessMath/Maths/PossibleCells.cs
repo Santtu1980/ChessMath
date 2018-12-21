@@ -38,11 +38,10 @@ namespace ChessMath.Maths
                 x => x.CellCoordinate.X >= cellToCompare.X - 1 && 
                      x.CellCoordinate.X <= cellToCompare.X + 1 &&
                      x.CellCoordinate.Y >= cellToCompare.Y - 1 &&
-                     x.CellCoordinate.Y >= cellToCompare.Y + 1);
+                     x.CellCoordinate.Y <= cellToCompare.Y + 1);
             // Remove cells outside grid
             possibleCells = possibleCells.Where(x => x.CellCoordinate.X >= 0 && x.CellCoordinate.Y >= 0);
-            possibleCells = possibleCells.Where(x => x.CellCoordinate.X <= 4 && x.CellCoordinate.Y <= 4); // TODO Check this and get the width and height of the gamearea
-
+            possibleCells = possibleCells.Where(x => x.CellCoordinate.X <= 3 && x.CellCoordinate.Y <= 3); // TODO Check this and get the width and height of the gamearea
             return possibleCells.ToList();
         }
     }
