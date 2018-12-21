@@ -9,16 +9,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ChessMath.Maths;
 using ChessMath.UI.Helpers;
 
 namespace ChessMath.UI
 {
     public partial class GameArea : Form
     {
-        public static Label helperLabel = new Label();
+        public static Label HelperLabel = new Label();
         public static GridHelper.GridForm SelectedGridForm { get; set; }
         public static TreadShape SelectedTreadShape { get; set; }
-        public static List<ExtentedLabel> Cells { get; set; } 
+        public static List<ExtentedLabel> Cells { get; set; }
 
         public GameArea()
         {
@@ -30,18 +31,18 @@ namespace ChessMath.UI
             int gridHeight = 4;
             SelectedGridForm = GridHelper.GridForm.Square;
             InitializeMainForm(gridWidth, gridHeight);
-            CreateGrid(gridWidth, gridHeight, SelectedGridForm);
+            CreateGrid(gridWidth, gridHeight, SelectedGridForm, SelectedTreadShape);
             CreateHelperLabel(gridWidth, gridHeight);
 
         }
 
         private void CreateHelperLabel(int gridWidth, int gridHeight)
         {
-            helperLabel.Top = 10;
-            helperLabel.Left = gridWidth * GridHelper.CELLWIDTH + 10;
-            helperLabel.Height = Height - 2 * 10;
-            helperLabel.Text = "Press start";
-            Controls.Add(helperLabel);
+            HelperLabel.Top = 10;
+            HelperLabel.Left = gridWidth * GridHelper.CELLWIDTH + 10;
+            HelperLabel.Height = Height - 2 * 10;
+            HelperLabel.Text = "Press start";
+            Controls.Add(HelperLabel);
         }
 
 
@@ -55,15 +56,28 @@ namespace ChessMath.UI
 
         public static void SetHelperText(string text)
         {
-            helperLabel.Text = "Next:" + text;
-        }
-        public void CreateGrid(int width, int height, GridHelper.GridForm form)
-        {
-            Cells = GridHelper.CreateGrid(width, height, form);
-            if(Cells.Any())
-                Controls.AddRange(Cells.Select(x => x).ToArray());
+            HelperLabel.Text = "Next:" + text;
         }
 
+        public void CreateGrid(int width, int height, GridHelper.GridForm form, TreadShape treadShape)
+        {
+            Cells = GridHelper.CreateGrid(width, height, form, treadShape);
+            if (Cells.Any())
+            {
+                Cells = SetPossibleCellsToCell(Cells);
+                Controls.AddRange(Cells.Select(x => x).ToArray());
+            }
+        }
+
+        private List<ExtentedLabel> SetPossibleCellsToCell(List<ExtentedLabel> cells)
+        {
+            foreach (var cell in cells)
+            {
+                cell.possibleCells = PossibleCells.GetPossibleCells(cell.CellCoordinate, SelectedGridForm, SelectedTreadShape);
+            }
+
+            return cells;
+        }
 
         private static ExtentedLabel _clickedLabel;
 

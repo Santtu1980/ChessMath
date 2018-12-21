@@ -21,7 +21,7 @@ namespace ChessMath.UI.Helpers
             Square
         }
 
-        public static List<ExtentedLabel> CreateGrid(int width, int height, GridForm form)
+        public static List<ExtentedLabel> CreateGrid(int width, int height, GridForm form, TreadShape stepShape)
         {
             int numberOfCells = 0;
             List<ExtentedLabel> cells = new List<ExtentedLabel>();
@@ -33,6 +33,11 @@ namespace ChessMath.UI.Helpers
                     cell.Top = row * CELLHEIGHT + 10;
                     cell.Left = column * CELLHEIGHT + 10;
                     cell.CellCoordinate = new Point(row, column);
+
+                    if (row == 0) cell.TopEdge = true;
+                    if (row == height) cell.BottomEdge = true;
+                    if (column == 0) cell.LeftEdge = true;
+                    if (column == width) cell.RightEdge = true;
                     cells.Add(cell);
 
                     numberOfCells++;
