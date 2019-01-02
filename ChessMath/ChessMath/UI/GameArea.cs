@@ -30,6 +30,7 @@ namespace ChessMath.UI
             int gridWidth = 4;
             int gridHeight = 4;
             SelectedGridForm = GridHelper.GridForm.Square;
+            SelectedTreadShape = TreadShape.upIsBetter;
             InitializeMainForm(gridWidth, gridHeight);
             CreateGrid(gridWidth, gridHeight, SelectedGridForm, SelectedTreadShape);
             CreateHelperLabel(gridWidth, gridHeight);

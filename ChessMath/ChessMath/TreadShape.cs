@@ -9,6 +9,9 @@ namespace ChessMath
     public enum TreadShape
     {
         closestEdges,
-        closestNotCorners
+        closestNotCorners,
+        chessKnight,
+        closestCorners,
+        upIsBetter,
     }
 }

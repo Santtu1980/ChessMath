@@ -55,7 +55,11 @@ namespace ChessMath.UI.Components
             {
                 RemoveLastNumber(clickedLabel);
             }
-            GameArea.SetHelperText(GridHelper.numbers.Min().ToString());
+
+            if (GridHelper.numbers.Any())
+                GameArea.SetHelperText(GridHelper.numbers.Min().ToString());
+            else
+                GameArea.SetHelperText("Voitto");
         }
 
         private ExtentedLabel GetBiggestNumber()
@@ -76,7 +80,7 @@ namespace ChessMath.UI.Components
         {
             if(int.TryParse(clickedLabel.Text, out int number))
             {
-                if(number + 1 == GridHelper.numbers.Min())
+                if(GridHelper.numbers.Any() && number + 1 == GridHelper.numbers.Min())
                 {
                     clickedLabel.Text = string.Empty;
                     GridHelper.numbers.Add(number);
